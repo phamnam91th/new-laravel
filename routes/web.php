@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CalculatorController;
+use App\Http\Controllers\faceController;
 use App\Http\Controllers\StudentController;
 
 /*
@@ -20,15 +21,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('/admin', function () {
+    return view('./CRUD/dashboard');
+})->name('admin');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/calculator', [CalculatorController::class, 'showCalculator'])->name('calculator');
-Route::post('/calculator', [CalculatorController::class, 'portShowCalculator'])->name('calculator');
-Route::get('/ptbn/{a}x+{b}=0', function($a,$b) {
-    $result = $a + $b;
-    return $result;
-});
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('home');
+Route::get('/face-detect', [faceController::class, 'detect'])->name('face-detect');
 
 // url->control -> view 
 Route::get('/show-student',[StudentController::class,'showStudent'])->name('listStudent');
@@ -36,4 +34,4 @@ Route::get('/show-student',[StudentController::class,'showStudent'])->name('list
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

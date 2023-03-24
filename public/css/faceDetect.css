@@ -1,0 +1,16 @@
+
+#pic-content {
+    width: 100%;
+    position: relative;
+}
+
+#pic-content img {
+    width: 100%;
+    height: auto;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
