@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\faceController;
-use App\Http\Controllers\StudentController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\dbController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,22 +16,25 @@ use App\Http\Controllers\StudentController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// home page
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/admin', function () {
-    return view('./CRUD/dashboard');
-})->name('admin');
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('home');
-Route::get('/face-detect', [faceController::class, 'detect'])->name('face-detect');
-
-// url->control -> view 
-Route::get('/show-student',[StudentController::class,'showStudent'])->name('listStudent');
+// frontend pages
+Route::get('/', [faceController::class, 'detect'])->name('face-detect');
 
 
+// backend pages
+Route::get('/admin', [dbController::class, 'dashboard'])->name('dashboard');
+Route::get('/show-item', [dbController::class, 'showData'])->name('personList');
+
+Route::get('/new-person',[dbController::class, 'newPerson'])->name('newPerson');
+Route::post('/add-person',[dbController::class, 'addPerson'])->name('addPerson');
+
+Route::get('/new-picture/{id}/{name}',[dbController::class, 'newPicture'])->name('newPicture');
+Route::post('/upload-picture/{id}/{name}',[dbController::class, 'uploadPicture'])->name('uploadPicture');
+
+
+// login
 Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

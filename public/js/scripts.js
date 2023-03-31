@@ -2,8 +2,8 @@ const container = document.querySelector('#pic-content');
 const fileInput = document.querySelector('#file-input');
 console.log(fileInput);
 async function loadTrainingData() {
-	// const labels = ['Fukada Eimi', 'Rina Ishihara', 'Takizawa Laura', 'Yua Mikami','Bao Thy','Tuan Hung','Minh Vuong','Anh Quan Ido','Lionel Messi','Suarez','Pique','Sergio Busquets','Stegen','Jordi Alba']
-	const labels = ['Fukada Eimi', 'Rina Ishihara']
+	const labels = ['Fukada Eimi', 'Rina Ishihara', 'Takizawa Laura', 'Yua Mikami','Bao Thy','Tuan Hung','Minh Vuong','Anh Quan Ido','Lionel Messi','Suarez','Pique','Sergio Busquets','Stegen','Jordi Alba']
+	// const labels = ['Fukada Eimi', 'Rina Ishihara']
 	// const labels = ['amy']
 
 
@@ -20,12 +20,6 @@ async function loadTrainingData() {
 			text: `Training xong data của ${label}!`
 		}).showToast();
 	}
-	var obj = faceDescriptors[0];
-	console.log(obj);
-	// var json = JSON.stringify(obj);
-	// var fs = require('fs');
-	// fs.writeFile('myjsonfile.json', json, 'utf8', callback);
-	// const myJSON = JSON.stringify(faceDescriptors);
 	return faceDescriptors
 }
 

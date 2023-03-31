@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class faceController extends Controller
 {
     public function detect() {
-        return view('faceDetect');
+        return view('frontend.pages.faceDetect');
     }
 }
