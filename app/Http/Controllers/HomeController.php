@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Utils\Paginate;
+
 class HomeController extends Controller
 {
     /**
@@ -25,5 +28,13 @@ class HomeController extends Controller
         return view('home');
     }
     
+    public function user()
+    {   
+        $users = User::all()->toArray();
+        $users = Paginate::paginate($users,1);
+        $users->setPath('user');
+
+        return view('user',compact('users'));
+    }
     
 }

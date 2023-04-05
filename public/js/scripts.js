@@ -1,12 +1,11 @@
 const container = document.querySelector('#pic-content');
 const fileInput = document.querySelector('#file-input');
-console.log(fileInput);
+// console.log(fileInput);
 async function loadTrainingData() {
-	const labels = ['Fukada Eimi', 'Rina Ishihara', 'Takizawa Laura', 'Yua Mikami','Bao Thy','Tuan Hung','Minh Vuong','Anh Quan Ido','Lionel Messi','Suarez','Pique','Sergio Busquets','Stegen','Jordi Alba']
+	// const labels = ['Fukada Eimi', 'Rina Ishihara', 'Takizawa Laura', 'Yua Mikami','Bao Thy','Tuan Hung','Minh Vuong','Anh Quan Ido','Lionel Messi','Suarez','Pique','Sergio Busquets','Stegen','Jordi Alba']
 	// const labels = ['Fukada Eimi', 'Rina Ishihara']
 	// const labels = ['amy']
-
-
+	console.log(labels);
 	const faceDescriptors = []
 	for (const label of labels) {
 		const descriptors = []
@@ -20,6 +19,10 @@ async function loadTrainingData() {
 			text: `Training xong data của ${label}!`
 		}).showToast();
 	}
+	let text = JSON.stringify(faceDescriptors);
+	localStorage.setItem('data',text);
+	// console.log(text);
+	// console.log(faceDescriptors)
 	return faceDescriptors
 }
 
@@ -36,10 +39,20 @@ async function init() {
 		text: "Tải xong model nhận diện!",
 	}).showToast();
 
-	const trainingData = await loadTrainingData()
-	faceMatcher = new faceapi.FaceMatcher(trainingData, 0.55)
+	// if(localStorage.getItem('data')) {
+	// 	console.log('a')
+	// 	const trainingData = JSON.parse(localStorage.getItem('data'));
+	// 	console.log(trainingData)
+	// 	faceMatcher = new faceapi.FaceMatcher(trainingData, 0.55)
+	// } else {
+	// 	console.log('b')
+	// 	const trainingData = await loadTrainingData()
+	// 	faceMatcher = new faceapi.FaceMatcher(trainingData, 0.55)
+	// }
 
-	console.log(faceMatcher)
+	const trainingData = await loadTrainingData()
+	console.log(trainingData)
+	faceMatcher = new faceapi.FaceMatcher(trainingData, 0.55)
 	document.querySelector("#loading").remove();
 }
 
@@ -50,7 +63,7 @@ fileInput.addEventListener('change', async () => {
 
 	const image = await faceapi.bufferToImage(files[0]);
 	const canvas = faceapi.createCanvasFromMedia(image);
-	console.log(canvas);
+	// console.log(canvas);
 	container.innerHTML = ''
 	container.append(image);
 	container.append(canvas);

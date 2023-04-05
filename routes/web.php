@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\faceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\dbController;
+use App\Http\Controllers\PaginationController;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +26,7 @@ use App\Http\Controllers\dbController;
 
 // frontend pages
 Route::get('/', [faceController::class, 'detect'])->name('face-detect');
+Route::get('/test', [faceController::class, 'getArr'])->name('getArr');
 
 
 // backend pages
@@ -38,3 +42,8 @@ Route::post('/upload-picture/{id}/{name}',[dbController::class, 'uploadPicture']
 
 // login
 Auth::routes();
+
+
+Route::get('/paginate', [PaginationController::class, 'index']);
+
+Route::get('/user', [HomeController::class,'user']);

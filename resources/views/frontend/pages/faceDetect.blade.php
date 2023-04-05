@@ -6,5 +6,14 @@
 	<p id="loading">Hệ thống đang tải dữ liệu ... </p>
 	<input type="file" name="file" id="file-input" />
 	<div id="pic-content"></div>
+
 @endsection
 
+
+@push('script')
+    const labels = [];
+    @foreach($personList as $name)
+        labels.push('{{$name->personName}}');
+    @endforeach
+        
+@endpush

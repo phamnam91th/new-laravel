@@ -7,6 +7,9 @@ use Carbon\Carbon;
 use File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use stdClass;
 
 class dbController extends Controller
 {
@@ -25,10 +28,44 @@ class dbController extends Controller
     }
 
     public function showData() {
-        $personList = DB::table('person')->get();
-        return view('backend.pages.personList')->with([
-            'personList' => $personList
-        ]);
+        // $personList = ['1'];
+        $personList = DB::table('person')
+        ->select('id')
+        ->get();
+        $listData = [];
+        $listName = array();
+        foreach($personList as $person) {
+            $personData = DB::table('person')  
+            ->leftJoin('data','person.id', '=', 'data.personId')
+            ->select('person.id','person.personName','data.path','data.name')
+            ->where('person.id','=',$person->id)
+            ->get();
+            $listName[] = $personData[0]->personName; 
+            $p = new stdClass;
+            $p->id = $personData[0]->id;
+            $p->name = $personData[0]->personName;
+            $p->img = [];
+            foreach($personData as $item) {
+                $p->img[] = $item->path.'/'.$item->name; 
+            }
+            $listData[] = $p;
+        }
+        
+        $listData = $this->paginate($listData,8);
+        $listData->setPath('show-item');
+
+        return view('backend.pages.personList', compact('listData','listName'));
+    }
+
+    public static function paginate($items, $perPage = 3, $page = null)
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $total = count($items);
+        $currentpage = $page;
+        $offset = ($currentpage * $perPage) - $perPage ;
+        $itemstoshow = array_slice($items , $offset , $perPage);
+        
+        return new LengthAwarePaginator($itemstoshow ,$total   ,$perPage);
     }
 
     public function newPerson(Request $request) {

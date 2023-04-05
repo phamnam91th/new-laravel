@@ -27,16 +27,47 @@
         <th>Action</th>
     </thead>
     <tbody>
-        @foreach ($personList as $item)
+        @foreach ($listData as $item)
+            {{-- <tr>
+                <td>{{$item->id}}</td>
+                <td>{{$item->name}}</td>
+                <td>
+                    @foreach($item->img as $img)
+                        <img style="height:100px; padding-left:10px;" src="{{$img}}" alt="">
+                    @endforeach
+                </td>
+                <td>
+                    <button><a href=" {{ URL::to('/new-picture/'.$item->id.'/'.$item->name) }} ">Upload</a></button>
+                </td>
+            </tr> --}}
             <tr>
                 <td>{{$item->id}}</td>
-                <td>{{$item->personName}}</td>
-                <td>{{$item->flag}}</td>
+                <td>{{$item->name}}</td>
                 <td>
-                    <button><a href=" {{ URL::to('/new-picture/'.$item->id.'/'.$item->personName) }} ">Upload</a></button>
+                    @foreach($item->img as $img)
+                        <img style="height:100px; padding-left:10px;" src="{{$img}}" alt="">
+                    @endforeach
+                </td>
+                <td>
+                    <button><a href=" {{ URL::to('/new-picture/'.$item->id.'/'.$item->name) }} ">Upload</a></button>
                 </td>
             </tr>
         @endforeach
     </tbody>
+    
+   
 </table>
+<div class="d-flex justify-content-center">
+    {{ $listData->links() }}
+</div>
 @endsection
+
+{{-- {{ var_dump($listPage) }} --}}
+
+@push('script')
+    let x = [];
+    @foreach($listName as $name)
+        x.push('{{$name}}');
+    @endforeach
+        console.log(x);
+@endpush

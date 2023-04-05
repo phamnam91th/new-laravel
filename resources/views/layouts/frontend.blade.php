@@ -8,5 +8,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.js" integrity="sha256-JOJ7NmVm2chxYZ1KPcAYd2bwVK7NaFj9QKMp7DClews=" crossorigin="anonymous"></script>
 	<script src="{{ asset('./js/scripts.js') }}"></script>
+    <script>
+        @stack('script')
+    </script>
 </body>
 </html>
